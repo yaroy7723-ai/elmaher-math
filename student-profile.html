@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حساب الطالب الشخصي | منصة الماهر</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/common.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-symbol" style="width: 42px; height: 42px; background: var(--gold-gradient); color: #072b6b; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 22px;">M</div>
+                <div class="logo-name">
+                    <small>منصة</small>
+                    <strong>المـاهر</strong>
+                    <span>التعليمية</span>
+                </div>
+            </a>
+
+            <div style="display: flex; gap: 12px; align-items: center;">
+                <a href="index.html" class="primary-btn" style="padding: 9px 20px; font-size: 14px; text-decoration: none;">
+                    ← العودة للرئيسية
+                </a>
+                <button onclick="logoutStudent()" style="background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid #ef4444; padding: 9px 18px; border-radius: 10px; font-weight: 800; font-size: 13px; cursor: pointer; font-family: inherit;">
+                    تسجيل الخروج 🚪
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main style="padding: 50px 0; min-height: 85vh;">
+        <div class="container" style="max-width: 1050px;">
+
+            <!-- PROFILE HEADER CARD -->
+            <div style="background: linear-gradient(135deg, #072b6b 0%, #0d47a1 100%); border-radius: 24px; padding: 35px; color: white; box-shadow: 0 15px 35px rgba(7, 43, 107, 0.25); margin-bottom: 40px; display: flex; align-items: center; gap: 30px; flex-wrap: wrap; position: relative; overflow: hidden;">
+                <div style="position: relative;">
+                    <div id="profileImageDisplay" style="width: 110px; height: 110px; border-radius: 50%; border: 4px solid var(--gold); background: #1e293b; display: flex; align-items: center; justify-content: center; font-size: 45px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.3);">
+                        🎓
+                    </div>
+                    <label for="profilePhotoInput" style="position: absolute; bottom: 0; right: 0; background: var(--gold-gradient); color: #072b6b; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);" title="تغيير الصورة الشخصية">
+                        📷
+                    </label>
+                    <input type="file" id="profilePhotoInput" accept="image/*" style="display: none;">
+                </div>
+
+                <div style="flex: 1;">
+                    <span style="background: rgba(255,183,3,0.2); color: var(--gold); padding: 4px 14px; border-radius: 15px; font-weight: 800; font-size: 12px; display: inline-block; margin-bottom: 8px;">حساب طالب معتمد 🌟</span>
+                    <h1 id="profileStudentName" style="font-size: 30px; font-weight: 900; margin-bottom: 6px;">طالب الماهر</h1>
+                    <p style="opacity: 0.85; font-size: 14.5px; margin-bottom: 12px;">أهلاً بك في لوحتك الشخصية، متابعتك لكورساتك ومذكراتك في مكان واحد!</p>
+                    
+                    <div style="display: flex; gap: 20px; flex-wrap: wrap; font-size: 13.5px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 12px;">
+                        <div>كود الطالب: <strong id="profileStudentCode" style="color: var(--gold); font-size: 16px;">#----</strong></div>
+                        <div>البريد الموحد: <strong id="profileStudentEmail" style="opacity: 0.95;">----</strong></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROFILE EDIT FORM & COURSES SECTION GRID -->
+            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 30px; align-items: start;">
+
+                <!-- EDIT PROFILE INFO CARD -->
+                <div style="background: white; border-radius: 20px; padding: 25px; border: 1px solid var(--border); box-shadow: var(--shadow-md);">
+                    <h3 style="font-size: 20px; font-weight: 900; color: var(--blue-dark); margin-bottom: 20px; border-bottom: 2px solid var(--border); padding-bottom: 10px;">
+                        ✏️ تعديل البيانات الشخصية
+                    </h3>
+
+                    <form id="editProfileForm">
+                        <div style="margin-bottom: 16px;">
+                            <label style="font-weight: 800; font-size: 13.5px; color: var(--text); display: block; margin-bottom: 6px;">اسم الطالب بالكامل</label>
+                            <input type="text" id="editFullName" required style="width: 100%; padding: 11px 14px; border: 1px solid var(--border); border-radius: 10px; font-family: inherit; font-weight: 700;">
+                        </div>
+
+                        <div style="margin-bottom: 16px;">
+                            <label style="font-weight: 800; font-size: 13.5px; color: var(--text); display: block; margin-bottom: 6px;">تغيير كلمة المرور</label>
+                            <input type="password" id="editPassword" placeholder="اكتب كلمة مرور جديدة..." style="width: 100%; padding: 11px 14px; border: 1px solid var(--border); border-radius: 10px; font-family: inherit;">
+                        </div>
+
+                        <button type="submit" style="width: 100%; background: var(--blue-gradient); color: white; border: none; padding: 12px; border-radius: 10px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 12px rgba(13,71,161,0.25); font-family: inherit;">
+                            حفظ التغييرات 💾
+                        </button>
+                    </form>
+                </div>
+
+                <!-- MY SUBSCRIBED COURSES -->
+                <div style="background: white; border-radius: 20px; padding: 25px; border: 1px solid var(--border); box-shadow: var(--shadow-md);">
+                    <h3 style="font-size: 20px; font-weight: 900; color: var(--blue-dark); margin-bottom: 20px; border-bottom: 2px solid var(--border); padding-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+                        <span>📚 الكورسات المشترك فيها</span>
+                        <span id="myCoursesCountBadge" style="background: var(--gold-gradient); color: #072b6b; padding: 3px 12px; border-radius: 12px; font-size: 13px; font-weight: 900;">0 كورس</span>
+                    </h3>
+
+                    <div id="mySubscribedCoursesGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
+                        <!-- Dynamically Rendered -->
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // Global Dark Mode Auto Sync
+        if (localStorage.getItem('elmaher_dark_mode') === 'enabled') {
+            document.documentElement.classList.add('dark-mode');
+            document.body.classList.add('dark-mode');
+        }
+
+        function logoutStudent() {
+            localStorage.removeItem('studentLoggedIn');
+            localStorage.removeItem('currentStudent');
+            window.location.href = "index.html";
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const isStudentIn = localStorage.getItem('studentLoggedIn') === 'true';
+            const currentStudent = JSON.parse(localStorage.getItem('currentStudent'));
+
+            if (!isStudentIn || !currentStudent) {
+                alert('عذراً، يجب تسجيل الدخول أولاً للوصول إلى حسابك الشخصي!');
+                window.location.href = "login.html";
+                return;
+            }
+
+            // Populate Student Data
+            document.getElementById('profileStudentName').textContent = currentStudent.fullName || 'طالب الماهر';
+            document.getElementById('profileStudentCode').textContent = `#${currentStudent.studentCode || '----'}`;
+            document.getElementById('profileStudentEmail').textContent = currentStudent.email || '----';
+            document.getElementById('editFullName').value = currentStudent.fullName || '';
+
+            if (currentStudent.photo) {
+                document.getElementById('profileImageDisplay').innerHTML = `<img src="${currentStudent.photo}" style="width: 100%; height: 100%; object-fit: cover;">`;
+            }
+
+            // Photo Upload Reader
+            document.getElementById('profilePhotoInput').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(evt) {
+                        const base64 = evt.target.result;
+                        currentStudent.photo = base64;
+                        localStorage.setItem('currentStudent', JSON.stringify(currentStudent));
+                        
+                        // Update Accounts Array
+                        const accounts = JSON.parse(localStorage.getItem('studentAccounts')) || [];
+                        const idx = accounts.findIndex(a => a.studentCode === currentStudent.studentCode);
+                        if (idx !== -1) {
+                            accounts[idx].photo = base64;
+                            localStorage.setItem('studentAccounts', JSON.stringify(accounts));
+                        }
+
+                        document.getElementById('profileImageDisplay').innerHTML = `<img src="${base64}" style="width: 100%; height: 100%; object-fit: cover;">`;
+                        alert('تم تحديث الصورة الشخصية بنجاح! 📸');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Handle Profile Info Update Form
+            document.getElementById('editProfileForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const newName = document.getElementById('editFullName').value.trim();
+                const newPass = document.getElementById('editPassword').value;
+
+                if (!newName) return;
+
+                currentStudent.fullName = newName;
+                if (newPass && newPass.length >= 6) {
+                    currentStudent.password = newPass;
+                }
+
+                localStorage.setItem('currentStudent', JSON.stringify(currentStudent));
+
+                // Sync with All Accounts
+                const accounts = JSON.parse(localStorage.getItem('studentAccounts')) || [];
+                const idx = accounts.findIndex(a => a.studentCode === currentStudent.studentCode);
+                if (idx !== -1) {
+                    accounts[idx].fullName = newName;
+                    if (newPass && newPass.length >= 6) accounts[idx].password = newPass;
+                    localStorage.setItem('studentAccounts', JSON.stringify(accounts));
+                }
+
+                document.getElementById('profileStudentName').textContent = newName;
+                alert('تم حفظ وتحديث بيانات حسابك بنجاح! 💾');
+            });
+
+            // Render Subscribed Courses
+            const storedCourses = JSON.parse(localStorage.getItem('courses')) || [];
+            const subscribedGrid = document.getElementById('mySubscribedCoursesGrid');
+            
+            // Get all subscribed course IDs for this student
+            let subscribedCourses = storedCourses.filter(c => localStorage.getItem(`subscribed_course_${c.id}`) === 'true');
+
+            document.getElementById('myCoursesCountBadge').textContent = `${subscribedCourses.length} كورس`;
+
+            if (subscribedCourses.length === 0) {
+                subscribedGrid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 30px; background: var(--gray-bg); border-radius: 14px; border: 1px dashed var(--border);">
+                        <div style="font-size: 36px; margin-bottom: 8px;">📚</div>
+                        <h4 style="font-weight: 800; color: var(--blue-dark); margin-bottom: 5px;">لم تشترك في أي كورس بعد</h4>
+                        <p style="font-size: 13px; color: var(--muted); margin-bottom: 15px;">استكشف كورسات مستر الماهر واشترك لتظهر فيديوهاتك ومذكراتك هنا!</p>
+                        <a href="index.html#courses" style="background: var(--blue-gradient); color: white; padding: 8px 18px; border-radius: 8px; font-weight: 800; text-decoration: none; font-size: 13px; display: inline-block;">تصفح الكورسات الآن 🚀</a>
+                    </div>
+                `;
+            } else {
+                let html = "";
+                subscribedCourses.forEach(c => {
+                    html += `
+                        <div style="background: var(--gray-bg); border-radius: 14px; padding: 16px; border: 1px solid var(--border); display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <span style="background: var(--gold-gradient); color: #072b6b; padding: 2px 10px; border-radius: 10px; font-size: 11px; font-weight: 900;">${c.subject || 'الرياضيات'}</span>
+                                <h4 style="font-size: 17px; font-weight: 900; color: var(--blue-dark); margin: 8px 0 6px 0;">${c.name}</h4>
+                                <p style="font-size: 12.5px; color: var(--muted); margin-bottom: 15px;">${c.level || ''}</p>
+                            </div>
+                            <a href="course-details.html?id=${c.id}" style="background: var(--blue-gradient); color: white; padding: 8px 14px; border-radius: 8px; font-size: 12.5px; font-weight: 800; text-decoration: none; text-align: center;">دخول محتوى الكورس 🚀</a>
+                        </div>
+                    `;
+                });
+                subscribedGrid.innerHTML = html;
+            }
+        });
+    </script>
+</body>
+</html>
