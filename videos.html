@@ -18,11 +18,15 @@
 
     <link rel="stylesheet" href="CSS/common.css">
     <link rel="stylesheet" href="CSS/videos.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
-
 <body>
+
+    <!-- TOGGLE BUTTON FOR MOBILE ADMIN SIDEBAR -->
+    <button id="adminMobileToggle" aria-label="قائمة التحكم">
+        <i class="fas fa-bars"></i>
+    </button>
 
 
     <!-- ================= SIDEBAR ================= -->
@@ -360,6 +364,23 @@
 
                     <!-- COURSE + LESSON -->
 
+                    <div class="form-row">
+
+
+                        <div class="form-group">
+
+                            <label>
+
+                                الكورس
+
+                                <span class="required">
+                                    *
+                                </span>
+
+                            </label>
+
+                            <select
+                                id="videoCourse"
                     <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 16px;">
                         <div class="form-group">
                             <label style="font-weight: 700; display: block; margin-bottom: 6px;">الكورس المنسوب إليه 📚 <span class="required">*</span></label>
@@ -397,6 +418,15 @@
                             </select>
                         </div>
                     </div>
+
+                            <option value="draft">
+                                مسودة
+                            </option>
+
+                        </select>
+
+                    </div>
+
 
                 </div>
 

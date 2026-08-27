@@ -157,4 +157,23 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.body.removeChild(link);
         });
     }
+
+    // Admin Mobile Toggle Event Listener
+    const adminToggleBtn = document.getElementById("adminMobileToggle");
+    const sidebar = document.querySelector(".sidebar");
+    if (adminToggleBtn && sidebar) {
+        adminToggleBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            sidebar.classList.toggle("active");
+            const isOpen = sidebar.classList.contains("active");
+            adminToggleBtn.innerHTML = isOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!sidebar.contains(e.target) && !adminToggleBtn.contains(e.target)) {
+                sidebar.classList.remove("active");
+                adminToggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+    }
 });

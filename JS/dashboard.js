@@ -29,4 +29,24 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.href = "login.html";
         });
     }
+
+    // Admin Mobile Hamburger Toggle
+    const adminToggleBtn = document.getElementById("adminMobileToggle");
+    const sidebar = document.querySelector(".sidebar");
+    if (adminToggleBtn && sidebar) {
+        adminToggleBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            sidebar.classList.toggle("active");
+            const isOpen = sidebar.classList.contains("active");
+            adminToggleBtn.innerHTML = isOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener("click", (e) => {
+            if (!sidebar.contains(e.target) && !adminToggleBtn.contains(e.target)) {
+                sidebar.classList.remove("active");
+                adminToggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+    }
 });
