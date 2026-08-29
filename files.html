@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EL MAHER | أدارة الملفات</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="CSS/common.css">
+    <link rel="stylesheet" href="CSS/files.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- TOGGLE BUTTON FOR MOBILE ADMIN SIDEBAR -->
+    <button id="adminMobileToggle" aria-label="قائمة التحكم">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">
+                M
+            </div>
+            <div class="brand-text">
+                <h2>EL MAHER</h2>
+                <span>TEACHER PANEL</span>
+            </div>
+        </div>
+
+
+        <nav>
+            <a href="dashboard.html">
+                <span class="nav-icon">📊</span>
+                <span class="nav-text">الرئيسية</span>
+            </a>
+
+            <a href="courses.html">
+                <span class="nav-icon">📚</span>
+                <span class="nav-text">إدارة الكورسات</span>
+            </a>
+
+            <a href="videos.html">
+                <span class="nav-icon">🎥</span>
+                <span class="nav-text">إدارة الفيديوهات</span>
+            </a>
+
+            <a href="files.html" class="active">
+                <span class="nav-icon">📁</span>
+                <span class="nav-text">إدارة الملفات</span>
+            </a>
+
+            <a href="events.html">
+                <span class="nav-icon">🏆</span>
+                <span class="nav-text">الأحداث والأوائل</span>
+            </a>
+
+            <a href="students.html">
+                <span class="nav-icon">👨‍🎓</span>
+                <span class="nav-text">الطلاب</span>
+            </a>
+
+            <a href="settings.html">
+                <span class="nav-icon">⚙️</span>
+                <span class="nav-text">الإعدادات</span>
+            </a>
+        </nav>
+
+        <button
+            class="logout"
+            id="logoutBtn"
+        >
+            تسجيل الخروج
+        </button>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <div class="page-label">
+                    TEACHER DASHBOARD
+                </div>
+
+                <h1>
+                    إدارة الملفات
+                </h1>
+
+                <p>
+                    أضف ونظم الملفات التعليمية الخاصة بالكورسات
+                </p>
+
+            </div>
+
+
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="teacher">
+                    <div class="avatar">
+                        M
+                    </div>
+                    <div>
+                        <strong>مستر الماهر</strong>
+                        <small>مدرس الرياضيات</small>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+
+        <!-- ================= TOOLBAR ================= -->
+
+        <div class="toolbar">
+
+            <div class="search">
+
+                <span>
+                    🔍
+                </span>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="ابحث عن ملف أو كورس..."
+                >
+
+            </div>
+
+
+            <button
+                class="primary-btn"
+                id="addFileBtn"
+            >
+                ＋ إضافة ملف جديد
+            </button>
+
+        </div>
+
+
+        <!-- ================= STATISTICS ================= -->
+
+        <section class="stats">
+
+            <div class="stat-card">
+
+                <div>
+
+                    <span>
+                        إجمالي الملفات
+                    </span>
+
+                    <strong id="totalFiles">
+                        0
+                    </strong>
+
+                </div>
+
+                <div class="stat-icon blue">
+                    <img src="" alt="">
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div>
+
+                    <span>
+                        الملفات المنشورة
+                    </span>
+
+                    <strong id="publishedFiles">
+                        0
+                    </strong>
+
+                </div>
+
+                <div class="stat-icon gold">
+                    ✓
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div>
+
+                    <span>
+                        المسودات
+                    </span>
+
+                    <strong id="draftFiles">
+                        0
+                    </strong>
+
+                </div>
+
+                <div class="stat-icon gray">
+                    ▣
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= TITLE ================= -->
+
+        <div class="section-title">
+
+            <span>
+                FILE LIBRARY
+            </span>
+
+            <h2>
+                الملفات التعليمية
+            </h2>
+
+        </div>
+
+
+        <!-- ================= FILES GRID ================= -->
+
+        <section
+            class="files-grid"
+            id="filesGrid"
+        ></section>
+
+
+        <!-- ================= EMPTY ================= -->
+
+        <section
+            class="empty-state"
+            id="emptyState"
+        >
+
+            <div class="empty-icon">
+                ▤
+            </div>
+
+            <h3>
+                لا توجد ملفات حتى الآن
+            </h3>
+
+            <p>
+                ابدأ بإضافة أول ملف تعليمي للكورسات
+            </p>
+
+            <button
+                class="primary-btn"
+                id="emptyAddBtn"
+            >
+                ＋ إضافة أول ملف
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================================================= -->
+    <!-- ================= ADD FILE MODAL ================ -->
+    <!-- ================================================= -->
+
+    <div
+        class="modal-overlay"
+        id="fileModal"
+    >
+
+        <div class="file-modal">
+
+            <!-- HEADER -->
+
+            <div class="modal-header">
+
+                <div class="modal-title">
+
+                    <div class="modal-icon">
+                        ▤
+                    </div>
+
+                    <div>
+
+                        <h2 id="modalTitle">
+                            إضافة ملف جديد
+                        </h2>
+
+                        <p>
+                            أضف بيانات الملف التعليمي
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="close-modal"
+                    id="closeModal"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <!-- FORM -->
+
+            <form id="fileForm">
+
+                <div class="modal-body">
+
+                    <!-- FILE NAME -->
+
+                    <div class="form-group">
+
+                    <!-- 1. FILE TITLE -->
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label style="font-weight: 800; font-size: 13.5px; display: block; margin-bottom: 6px; color: var(--blue-dark);">اسم المذكرة / الملف التعليمي 📝 <span class="required">*</span></label>
+                        <input type="text" id="fileTitle" placeholder="مثال: ملخص ومسائل درس التفاضل الأول" required style="width: 100%; height: 46px; border: 1px solid var(--gray-border); border-radius: 10px; font-weight: 700; padding: 0 14px; font-family: inherit;">
+                    </div>
+
+                    <!-- 2. COURSE & LESSON NUMBER ROW -->
+                    <div class="form-row" style="display: grid; grid-template-columns: 2fr 1fr; gap: 15px; margin-bottom: 16px;">
+                        <div class="form-group">
+                            <label style="font-weight: 800; font-size: 13.5px; display: block; margin-bottom: 6px; color: var(--blue-dark);">الكورس المنسوب إليه 📚 <span class="required">*</span></label>
+                            <select id="fileCourse" required style="width: 100%; height: 46px; border: 1px solid var(--gray-border); border-radius: 10px; font-weight: 700; padding: 0 12px; font-family: inherit;">
+                                <option value="">اختر الكورس...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label style="font-weight: 800; font-size: 13.5px; display: block; margin-bottom: 6px; color: var(--blue-dark);">رقم الدرس / الملف 🔢</label>
+                            <input type="number" id="fileLesson" min="1" placeholder="مثال: 1" style="width: 100%; height: 46px; border: 1px solid var(--gray-border); border-radius: 10px; font-weight: 700; padding: 0 12px; font-family: inherit;">
+                        </div>
+                    </div>
+
+                    <!-- 3. FILE UPLOAD BOX -->
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label style="font-weight: 800; font-size: 13.5px; display: block; margin-bottom: 6px; color: var(--blue-dark);">اختيار المذكرة / الملف (PDF, Word) 📄 <span class="required">*</span></label>
+                        <input type="file" id="fileInput" hidden>
+                        <label for="fileInput" class="upload-area" id="uploadArea" style="border: 2px dashed #0d47a1; border-radius: 14px; padding: 22px; text-align: center; cursor: pointer; display: block; background: #f8fafc; transition: all 0.3s ease;">
+                            <div class="upload-icon" style="font-size: 32px; color: #0d47a1; margin-bottom: 6px;">📤</div>
+                            <h3 style="font-size: 15px; font-weight: 900; color: #072b6b; margin-bottom: 4px;">اضغط هنا لاختيار أو سحب الملف</h3>
+                            <small style="color: #64748b; font-size: 12px;">يدعم صيغ PDF, Word, PowerPoint, ZIP حتى 50MB</small>
+                            <div class="selected-file" id="selectedFile" style="margin-top: 10px; font-weight: 900; color: #fb8500; font-size: 13px;">لم يتم اختيار ملف بعد</div>
+                        </label>
+                    </div>
+
+                    <!-- 4. DESCRIPTION & STATUS ROW -->
+                    <div class="form-row" style="display: grid; grid-template-columns: 2fr 1fr; gap: 15px; margin-bottom: 20px;">
+                        <div class="form-group">
+                            <label style="font-weight: 800; font-size: 13.5px; display: block; margin-bottom: 6px; color: var(--blue-dark);">وصف المذكرة أو التمارين 📝</label>
+                            <textarea id="fileDescription" rows="3" placeholder="اكتب وصفًا مختصرًا لمحتوى المذكرة..." style="width: 100%; padding: 10px 12px; border: 1px solid var(--gray-border); border-radius: 10px; font-family: inherit; font-weight: 600;"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label style="font-weight: 800; font-size: 13.5px; display: block; margin-bottom: 6px; color: var(--blue-dark);">حالة النشر 📌</label>
+                            <select id="fileStatus" style="width: 100%; height: 46px; border: 1px solid var(--gray-border); border-radius: 10px; font-weight: 800; padding: 0 10px; font-family: inherit;">
+                                <option value="published">منشور للطلاب 🟢</option>
+                                <option value="draft">مسودة خفية 🟡</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- FOOTER -->
+
+                <div class="modal-footer">
+
+                    <button
+                        type="button"
+                        class="cancel-btn"
+                        id="cancelModal"
+                    >
+                        إلغاء
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="save-btn"
+                    >
+                        حفظ الملف
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="JS/files.js"></script>
+
+</body>
+
+</html>

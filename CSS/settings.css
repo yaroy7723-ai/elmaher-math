@@ -1,0 +1,86 @@
+/* ==========================================
+   EL MAHER - SETTINGS PAGE STYLES
+   محدد باستخدام خط Cairo ونفس نظام الألوان
+========================================== */
+
+:root {
+    --blue-dark: #072b6b;
+    --blue: #0d47a1;
+    --blue-light: #1e88e5;
+
+    --gold: #ffb703;
+
+    --white: #FFFFFF;
+
+    --gray-bg: #f8fafc;
+    --gray-light: #f1f5f9;
+    --gray-border: #e2e8f0;
+
+    --text: #0f172a;
+    --muted: #64748b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Cairo', system-ui, -apple-system, sans-serif;
+    background: var(--gray-bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+.settings-card {
+    background: var(--white);
+    border-radius: 14px;
+    border: 1px solid var(--gray-border);
+    padding: 32px;
+    max-width: 680px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+}
+
+.settings-card label {
+    display: block;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--blue-dark);
+    margin-bottom: 8px;
+}
+
+.settings-card input {
+    width: 100%;
+    height: 50px;
+    padding: 0 16px;
+    border: 1px solid var(--gray-border);
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 15px;
+    transition: border-color 0.2s ease;
+}
+
+.settings-card input:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.1);
+}
+
+.settings-btn {
+    background: var(--blue-dark);
+    color: var(--white);
+    border: none;
+    padding: 14px 32px;
+    border-radius: 10px;
+    font-weight: 800;
+    font-size: 16px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.settings-btn:hover {
+    background: var(--blue);
+    transform: translateY(-2px);
+}

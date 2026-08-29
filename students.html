@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>إدارة الطلاب | EL MAHER</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="CSS/common.css">
+    <link rel="stylesheet" href="CSS/students.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- TOGGLE BUTTON FOR MOBILE ADMIN SIDEBAR -->
+    <button id="adminMobileToggle" aria-label="قائمة التحكم">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">M</div>
+            <div class="brand-text">
+                <h2>EL MAHER</h2>
+                <span>TEACHER PANEL</span>
+            </div>
+        </div>
+
+        <nav>
+            <a href="dashboard.html">
+                <span class="nav-icon">📊</span>
+                <span class="nav-text">الرئيسية</span>
+            </a>
+            <a href="courses.html">
+                <span class="nav-icon">📚</span>
+                <span class="nav-text">إدارة الكورسات</span>
+            </a>
+            <a href="videos.html">
+                <span class="nav-icon">🎥</span>
+                <span class="nav-text">إدارة الفيديوهات</span>
+            </a>
+            <a href="files.html">
+                <span class="nav-icon">📁</span>
+                <span class="nav-text">إدارة الملفات</span>
+            </a>
+            <a href="students.html" class="active">
+                <span class="nav-icon">👨‍🎓</span>
+                <span class="nav-text">الطلاب</span>
+            </a>
+            <a href="settings.html">
+                <span class="nav-icon">⚙️</span>
+                <span class="nav-text">الإعدادات</span>
+            </a>
+        </nav>
+
+        <button class="logout" id="logoutBtn">↪ تسجيل الخروج</button>
+    </aside>
+
+    <!-- ================= MAIN ================= -->
+    <main class="main">
+        <header class="topbar">
+            <div>
+                <div class="page-label">TEACHER DASHBOARD</div>
+                <h1>إدارة الطلاب 👨‍🎓</h1>
+                <p>عرض وإدارة قائمة الطلاب المسجلين والتحكم في صلاحياتهم</p>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="teacher">
+                    <div class="avatar">M</div>
+                    <div>
+                        <strong>مستر الماهر</strong>
+                        <small>مدرس الرياضيات</small>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- TOOLBAR -->
+        <div class="toolbar" style="display: flex; gap: 15px; margin-bottom: 25px; align-items: center; flex-wrap: wrap;">
+            <div class="search" style="flex: 1; min-width: 250px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 15px; display: flex; align-items: center; gap: 10px;">
+                <span>🔍</span>
+                <input type="text" id="searchInput" placeholder="ابحث عن طالب بالاسم أو الكود..." style="border: none; outline: none; width: 100%; font-family: inherit;">
+            </div>
+
+            <button onclick="openGlobalActivationModal()" style="background: linear-gradient(135deg, #072b6b 0%, #0d47a1 100%); color: white; border: none; padding: 11px 22px; border-radius: 8px; font-weight: 800; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(7, 43, 107, 0.3); font-family: inherit;">
+                <span>⚡</span>
+                <span>تنشيط كورس لطالب ⚡</span>
+            </button>
+
+            <button id="exportExcelBtn" style="background: #10b981; color: white; border: none; padding: 11px 22px; border-radius: 8px; font-weight: 800; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25); font-family: inherit;">
+                <span>📊</span>
+                <span>تصدير شيت Excel 📥</span>
+            </button>
+        </div>
+
+        <!-- STUDENTS LIST TABLE -->
+        <section class="students-table-card" style="background: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3>قائمة الطلاب المسجلين</h3>
+                <span style="color: var(--muted); font-size: 14px;">إجمالي الطلاب: <strong id="studentsCount">0</strong></span>
+            </div>
+
+            <div id="emptyState" class="empty-state" style="text-align: center; padding: 50px 20px;">
+                <div style="font-size: 40px; margin-bottom: 10px;">👨‍🎓</div>
+                <h3>لا يوجد طلاب مسجلين حالياً</h3>
+                <p style="color: var(--muted);">سيتم عرض بيانات الطلاب عند تسجيلهم في المنصة.</p>
+            </div>
+
+            <table id="studentsTable" style="width: 100%; border-collapse: collapse; display: none;">
+                <thead>
+                    <tr style="border-bottom: 2px solid #e2e8f0; text-align: right; background: #f8fafc;">
+                        <th style="padding: 14px;">كود الطالب</th>
+                        <th style="padding: 14px;">اسم الطالب</th>
+                        <th style="padding: 14px;">الصف الدراسي</th>
+                        <th style="padding: 14px;">البريد الإلكتروني الموحد</th>
+                        <th style="padding: 14px;">رقم الهاتف 📱</th>
+                        <th style="padding: 14px;">كلمة السر 🔒</th>
+                        <th style="padding: 14px;">تاريخ التسجيل</th>
+                        <th style="padding: 14px; text-align: center;">الإجراءات ⚙️</th>
+                    </tr>
+                </thead>
+                <tbody id="studentsTbody">
+                </tbody>
+            </table>
+        </section>
+
+        <!-- EDIT STUDENT MODAL -->
+        <div id="editStudentModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9999; align-items: center; justify-content: center; padding: 20px;">
+            <div style="background: white; border-radius: 18px; padding: 30px; max-width: 450px; width: 100%; box-shadow: 0 15px 35px rgba(0,0,0,0.25);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px;">
+                    <h3 style="font-size: 20px; font-weight: 900; color: #072b6b;">✏️ تعديل بيانات الطالب</h3>
+                    <button onclick="closeEditStudentModal()" style="background: none; border: none; font-size: 22px; cursor: pointer; color: #64748b;">✕</button>
+                </div>
+                <form id="editStudentForm">
+                    <div style="margin-bottom: 16px;">
+                        <label style="font-weight: 800; font-size: 13.5px; display: block; margin-bottom: 6px;">اسم الطالب بالكامل</label>
+                        <input type="text" id="editStudentName" required style="width: 100%; height: 44px; border: 1px solid #cbd5e1; border-radius: 8px; font-weight: 700; padding: 0 12px; font-family: inherit;">
+                    </div>
+                    <div style="margin-bottom: 22px;">
+                        <label style="font-weight: 800; font-size: 13.5px; display: block; margin-bottom: 6px;">الصف الدراسي</label>
+                        <select id="editStudentGrade" style="width: 100%; height: 44px; border: 1px solid #cbd5e1; border-radius: 8px; font-weight: 700; padding: 0 12px; font-family: inherit;">
+                            <option value="الصف الأول الثانوي">الصف الأول الثانوي 🏫</option>
+                            <option value="الصف الثاني الثانوي">الصف الثاني الثانوي 🏫</option>
+                            <option value="الصف الثالث الثانوي">الصف الثالث الثانوي (الثانوية العامة) 👑</option>
+                            <option value="الصف الأول الإعدادي">الصف الأول الإعدادي 📖</option>
+                            <option value="الصف الثاني الإعدادي">الصف الثاني الإعدادي 📖</option>
+                            <option value="الصف الثالث الإعدادي">الصف الثالث الإعدادي 📖</option>
+                        </select>
+                    </div>
+                    <button type="submit" style="width: 100%; height: 46px; background: var(--blue-gradient); color: white; border: none; border-radius: 10px; font-weight: 900; font-size: 15px; cursor: pointer; font-family: inherit;">
+                        حفظ التغييرات 💾
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- COURSE ACTIVATION MODAL -->
+        <div id="globalActivationModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 9999; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(4px);">
+            <div style="background: white; border-radius: 20px; padding: 30px; max-width: 520px; width: 100%; box-shadow: 0 20px 40px rgba(0,0,0,0.3); border: 2px solid var(--gold);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px;">
+                    <div>
+                        <h3 style="font-size: 20px; font-weight: 900; color: #072b6b;">⚡ إدارة وتنشيط الكورسات للطالب</h3>
+                        <p style="color: #64748b; font-size: 13px; margin-top: 2px;">الطالب: <strong id="activeTargetStudentInfo" style="color: #0d47a1;">---</strong></p>
+                    </div>
+                    <button onclick="closeGlobalActivationModal()" style="background: none; border: none; font-size: 22px; cursor: pointer; color: #64748b;">✕</button>
+                </div>
+
+                <form id="globalActivationForm">
+                    <!-- STUDENT SELECTION DROPDOWN -->
+                    <div class="input-group" id="studentSelectionContainer" style="margin-bottom: 16px;">
+                        <label style="display: block; font-weight: 800; font-size: 13.5px; color: #0f172a; margin-bottom: 6px;">1. اختر الطالب بواسطة الكود والاسم 👨‍🎓</label>
+                        <select id="selectActivationStudent" style="width: 100%; height: 46px; border: 1.5px solid #cbd5e1; border-radius: 10px; font-weight: 700; padding: 0 12px; font-size: 14px; font-family: inherit; background: white;">
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
+
+                    <!-- SINGLE STUDENT LOCKED DISPLAY -->
+                    <div id="singleStudentLockedDisplay" style="display: none; margin-bottom: 16px; background: #f1f5f9; padding: 14px 16px; border-radius: 12px; border: 1px solid #cbd5e1;">
+                        <small style="color: #64748b; font-weight: 700; display: block; margin-bottom: 2px;">الطالب المحدد حالياً:</small>
+                        <strong id="lockedStudentText" style="color: #072b6b; font-size: 16px; font-weight: 900;">---</strong>
+                    </div>
+
+                    <!-- COURSE SELECTION DROPDOWN -->
+                    <div class="input-group" style="margin-bottom: 22px;">
+                        <label style="display: block; font-weight: 800; font-size: 13.5px; color: #0f172a; margin-bottom: 6px;">2. اختر الكورس المُراد التحكم به 📚</label>
+                        <select id="selectActivationCourse" required style="width: 100%; height: 46px; border: 1.5px solid #cbd5e1; border-radius: 10px; font-weight: 700; padding: 0 12px; font-size: 14px; font-family: inherit; background: white;">
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
+
+                    <div style="display: flex; gap: 12px;">
+                        <button type="submit" name="actionType" value="activate" style="flex: 1; height: 48px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; border-radius: 12px; font-weight: 900; font-size: 15px; cursor: pointer; box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3); font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                            <span>⚡ تنشيط فك القفل</span>
+                        </button>
+                        <button type="button" onclick="handleDeactivation()" style="flex: 1; height: 48px; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; border: none; border-radius: 12px; font-weight: 900; font-size: 15px; cursor: pointer; box-shadow: 0 6px 16px rgba(239, 68, 68, 0.3); font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                            <span>🔴 إلغاء التنشيط والقفل</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="JS/students.js"></script>
+</body>
+</html>

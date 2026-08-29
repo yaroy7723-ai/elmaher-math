@@ -1,0 +1,67 @@
+/* ==========================================
+   EL MAHER - STUDENTS PAGE STYLES
+   محدد باستخدام خط Cairo ونفس نظام الألوان
+========================================== */
+
+:root {
+    --blue-dark: #072b6b;
+    --blue: #0d47a1;
+    --blue-light: #1e88e5;
+
+    --gold: #ffb703;
+
+    --white: #FFFFFF;
+
+    --gray-bg: #f8fafc;
+    --gray-light: #f1f5f9;
+    --gray-border: #e2e8f0;
+
+    --text: #0f172a;
+    --muted: #64748b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Cairo', system-ui, -apple-system, sans-serif;
+    background: var(--gray-bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+.students-table-card {
+    background: var(--white);
+    border-radius: 14px;
+    border: 1px solid var(--gray-border);
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+}
+
+.students-table-card h3 {
+    color: var(--blue-dark);
+    font-size: 18px;
+    font-weight: 800;
+}
+
+#studentsTable th {
+    background: var(--gray-light);
+    color: var(--blue-dark);
+    font-size: 14px;
+    font-weight: 800;
+    padding: 14px;
+    border-bottom: 2px solid var(--gray-border);
+}
+
+#studentsTable td {
+    padding: 14px;
+    font-size: 14px;
+    color: var(--text);
+}
+
+#studentsTable tr:hover {
+    background: #f1f5f9;
+}

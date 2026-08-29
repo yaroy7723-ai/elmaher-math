@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>إدارة الكورسات | EL MAHER</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="CSS/common.css">
+    <link rel="stylesheet" href="CSS/courses.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- TOGGLE BUTTON FOR MOBILE ADMIN SIDEBAR -->
+    <button id="adminMobileToggle" aria-label="قائمة التحكم">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                M
+            </div>
+
+            <div class="brand-text">
+                <h2>EL MAHER</h2>
+                <span>TEACHER PANEL</span>
+            </div>
+
+        </div>
+
+
+        <nav>
+            <a href="dashboard.html">
+                <span class="nav-icon">📊</span>
+                <span class="nav-text">الرئيسية</span>
+            </a>
+
+            <a href="courses.html" class="active">
+                <span class="nav-icon">📚</span>
+                <span class="nav-text">إدارة الكورسات</span>
+            </a>
+
+            <a href="videos.html">
+                <span class="nav-icon">🎥</span>
+                <span class="nav-text">إدارة الفيديوهات</span>
+            </a>
+
+            <a href="files.html">
+                <span class="nav-icon">📁</span>
+                <span class="nav-text">إدارة الملفات</span>
+            </a>
+
+            <a href="events.html">
+                <span class="nav-icon">🏆</span>
+                <span class="nav-text">الأحداث والأوائل</span>
+            </a>
+
+            <a href="students.html">
+                <span class="nav-icon">👨‍🎓</span>
+                <span class="nav-text">الطلاب</span>
+            </a>
+
+            <a href="settings.html">
+                <span class="nav-icon">⚙️</span>
+                <span class="nav-text">الإعدادات</span>
+            </a>
+        </nav>
+
+
+        <button
+            id="logoutBtn"
+            class="logout"
+        >
+            ↪ تسجيل الخروج
+        </button>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+
+        <!-- ================= TOPBAR ================= -->
+
+        <header class="topbar">
+
+            <div>
+
+                <span class="page-label">
+                    إدارة المحتوى
+                </span>
+
+                <h1>
+                    إدارة الكورسات
+                </h1>
+
+                <p>
+                    أنشئ ونظّم المحتوى التعليمي الخاص بك
+                </p>
+
+            </div>
+
+
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="teacher">
+                    <div class="avatar">
+                        M
+                    </div>
+                    <div>
+                        <strong>مستر الماهر</strong>
+                        <small>مدرس الرياضيات</small>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+
+        <!-- ================= COURSES PAGE ================= -->
+
+        <section id="coursesPage">
+
+
+            <!-- TOOLBAR -->
+
+            <div class="toolbar">
+
+                <div class="search">
+
+                    <span>
+                        M
+                    </span>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="ابحث عن كورس..."
+                    >
+
+                </div>
+
+
+                <button
+                    id="addCourseBtn"
+                    class="primary-btn"
+                    onclick="document.getElementById('courseFormModal').style.display='flex';"
+                >
+                    + إضافة كورس جديد
+                </button>
+
+            </div>
+
+
+            <!-- ================= STATISTICS ================= -->
+
+            <div class="stats">
+
+
+                <div class="stat-card">
+
+                    <div>
+
+                        <span>
+                            إجمالي الكورسات
+                        </span>
+
+                        <strong id="totalCourses">
+                            0
+                        </strong>
+
+                    </div>
+
+                    <div class="stat-icon blue">
+                        ▣
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div>
+
+                        <span>
+                            الكورسات المنشورة
+                        </span>
+
+                        <strong id="publishedCourses">
+                            0
+                        </strong>
+
+                    </div>
+
+                    <div class="stat-icon gold">
+                        ✓
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div>
+
+                        <span>
+                            المسودات
+                        </span>
+
+                        <strong id="draftCourses">
+                            0
+                        </strong>
+
+                    </div>
+
+                    <div class="stat-icon gray">
+                        ◷
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SECTION TITLE ================= -->
+
+            <div class="section-title">
+
+                <span>
+                    المحتوى التعليمي
+                </span>
+
+                <h2>
+                    جميع الكورسات
+                </h2>
+
+            </div>
+
+
+            <!-- ================= COURSES ================= -->
+
+            <div
+                id="coursesGrid"
+                class="courses-grid"
+            ></div>
+
+
+            <!-- ================= EMPTY ================= -->
+
+            <div
+                id="emptyState"
+                class="empty-state"
+            >
+
+                <div class="empty-icon">
+                    ▣
+                </div>
+
+                <h3>
+                    لا توجد كورسات حتى الآن
+                </h3>
+
+                <p>
+                    ابدأ بإنشاء أول كورس تعليمي
+                </p>
+
+                <button
+                    id="emptyAddBtn"
+                    class="primary-btn"
+                    onclick="document.getElementById('courseFormModal').style.display='flex';"
+                >
+                    + إنشاء أول كورس
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ADD / EDIT COURSE MODAL ================= -->
+        <div id="courseFormModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 99999; align-items: center; justify-content: center; padding: 20px; overflow-y: auto;">
+            <div style="background: white; border-radius: 20px; padding: 30px; max-width: 650px; width: 100%; box-shadow: 0 20px 50px rgba(0,0,0,0.4); border: 2px solid var(--gold); max-height: 90vh; overflow-y: auto;">
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px;">
+                    <h2 id="formTitle" style="font-size: 22px; font-weight: 900; color: #072b6b;">إضافة كورس جديد 📚</h2>
+                    <button type="button" onclick="document.getElementById('courseFormModal').style.display='none';" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #64748b;">✕</button>
+                </div>
+
+                <form id="courseForm">
+                    <!-- COURSE NAME -->
+                    <div style="margin-bottom: 16px;">
+                        <label style="font-weight: 800; font-size: 13.5px; display: block; margin-bottom: 6px;">اسم الكورس <span style="color:red">*</span></label>
+                        <input type="text" id="courseName" placeholder="مثال: التفاضل والتكامل للصف الثالث الثانوي" required style="width: 100%; height: 46px; border: 1px solid #cbd5e1; border-radius: 10px; font-weight: 700; padding: 0 14px; font-family: inherit;">
+                    </div>
+
+                    <!-- LEVEL + SUBJECT + TERM + STATUS GRID -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 16px;">
+                        <div>
+                            <label style="font-weight: 800; font-size: 13.5px; display: block; margin-bottom: 6px;">المرحلة الدراسية <span style="color:red">*</span></label>
+                            <select id="courseLevel" required style="width: 100%; height: 46px; border: 1px solid #cbd5e1; border-radius: 10px; font-weight: 700; padding: 0 12px; font-family: inherit;">
+                                <option value="">اختر المرحلة</option>
+                                <option value="الصف الخامس الابتدائي">الصف الخامس الابتدائي</option>
+                                <option value="الصف السادس الابتدائي">الصف السادس الابتدائي</option>
+                                <option value="الصف الأول الإعدادي">الصف الأول الإعدادي</option>
+                                <option value="الصف الثاني الإعدادي">الصف الثاني الإعدادي</option>
+                                <option value="الصف الثالث الإعدادي">الصف الثالث الإعدادي</option>
+                                <option value="الصف الأول الثانوي">الصف الأول الثانوي</option>
+                                <option value="الصف الثاني الثانوي">الصف الثاني الثانوي</option>
+                                <option value="الصف الثالث الثانوي">الصف الثالث الثانوي</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label style="font-weight: 800; font-size: 13.5px; display: block; margin-bottom: 6px;">فرع / مادة الرياضيات 📐</label>
+                            <select id="courseSubject" required style="width: 100%; height: 46px; border: 1px solid #cbd5e1; border-radius: 10px; font-weight: 700; padding: 0 12px; font-family: inherit;">
+                                <option value="الرياضيات العامة">الرياضيات العامة</option>
+                                <option value="الجبر والهندسة الفراغية">الجبر والهندسة الفراغية</option>
+                                <option value="التفاضل والتكامل">التفاضل والتكامل</option>
+                                <option value="الاستاتيكا والديناميكا (ميكانيكا)">الاستاتيكا والديناميكا (ميكانيكا)</option>
+                                <option value="الهندسة والتحليلية">الهندسة والتحليلية</option>
+                                <option value="حساب المثلثات">حساب المثلثات</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 16px;">
+                        <div>
+                            <label style="font-weight: 800; font-size: 13.5px; display: block; margin-bottom: 6px;">الترم 📅</label>
+                            <select id="courseTerm" style="width: 100%; height: 46px; border: 1px solid #cbd5e1; border-radius: 10px; font-weight: 700; padding: 0 10px; font-family: inherit;">
+                                <option value="الترم الأول">الترم الأول</option>
+                                <option value="الترم الثاني">الترم الثاني</option>
+                                <option value="مراجعة نهائية ليلة الامتحان">مراجعة نهائية ليلة الامتحان</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label style="font-weight: 800; font-size: 13.5px; display: block; margin-bottom: 6px;">حالة الكورس 📌</label>
+                            <select id="courseStatus" style="width: 100%; height: 46px; border: 1px solid #cbd5e1; border-radius: 10px; font-weight: 700; padding: 0 10px; font-family: inherit;">
+                                <option value="published">منشور للطلاب 🟢</option>
+                                <option value="draft">مسودة خفية 🟡</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label style="font-weight: 800; font-size: 13.5px; display: block; margin-bottom: 6px;">الاشتراك (EGP) 💵</label>
+                            <input type="number" id="coursePrice" placeholder="150" value="150" required style="width: 100%; height: 46px; border: 1px solid #cbd5e1; border-radius: 10px; font-weight: 700; padding: 0 12px; font-family: inherit;">
+                        </div>
+                    </div>
+
+                    <!-- DESCRIPTION -->
+                    <div style="margin-bottom: 16px;">
+                        <label style="font-weight: 800; font-size: 13.5px; display: block; margin-bottom: 6px;">وصف الكورس والمهارات المكتسبة 📝</label>
+                        <textarea id="courseDescription" rows="3" placeholder="اكتب وصفاً تفصيلياً وشاملاً لمحتوى الكورس والتمارين..." required style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 10px; font-family: inherit; font-weight: 600;"></textarea>
+                    </div>
+
+                    <!-- IMAGE UPLOAD -->
+                    <div style="margin-bottom: 22px;">
+                        <label style="font-weight: 800; font-size: 13.5px; display: block; margin-bottom: 6px;">صورة غلاف الكورس 🖼️</label>
+                        <input type="file" id="courseImageFile" accept="image/*" style="padding: 10px; border: 1px dashed #cbd5e1; border-radius: 10px; width: 100%;">
+                        <input type="hidden" id="courseImage">
+                    </div>
+
+                    <!-- ACTIONS -->
+                    <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                        <button type="button" onclick="document.getElementById('courseFormModal').style.display='none';" style="background: #e2e8f0; color: #475569; border: none; padding: 12px 24px; border-radius: 10px; font-weight: 800; cursor: pointer; font-family: inherit;">إلغاء</button>
+                        <button type="submit" style="background: var(--blue-gradient); color: white; border: none; padding: 12px 30px; border-radius: 10px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 15px rgba(13,71,161,0.3); font-family: inherit;">حفظ الكورس 💾</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+    </main>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="JS/courses.js"></script>
+
+</body>
+
+</html>
